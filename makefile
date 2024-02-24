@@ -3,10 +3,10 @@ CFLAGS  = -Wall -g
 all  : radius.exe
 
 
-radius.exe  : boole.o  radius.c  
+radius.exe  : boole.o  code.o radius.c  
 	gcc $(CFLAGS) $^ -o $@
 
-option.o : option.h option.c
+code.o : code.h code.c
 	gcc $(CFLAGS) $^ -c
 
 boole.o : boole.h boole.c

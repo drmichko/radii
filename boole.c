@@ -11,6 +11,22 @@ int ffdimen = 6;
 int ffsize  = 64;
 
 
+
+int binomial(int k, int m){
+  if (k==0){
+    return 1;
+  }
+
+  int step1 = m - k + 1;
+  int step0;
+  for(int i = 1 ; i < k; i++){
+    step0 = step1;
+    step1 = step0 * (m-k+1+i)/(i+1);
+  }
+  return step1;
+}
+
+
 int bstdimen(int s, int t, int m){
   int somme = 0;
   for(int i = s ; i < t+1 ; i++ ){
