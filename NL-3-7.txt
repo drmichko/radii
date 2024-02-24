@@ -1,0 +1,10 @@
+# best non linearity of order 3 in 7 variables :
+# class NL_3 >= 20 :
+20 anf=ad+abd+acd+abcd+ce+ace+cde+bcde+bf+abf+cf+acf+cdf+aef+bef+cdef+abg+bcg+abcg+bdg+eg+aeg+beg+deg+fg+afg+abfg+dfg+aefg+defg
+20 anf=a+ab+ad+bd+abd+bcd+e+ae+ce+bce+de+ade+bde+cde+abf+cf+acf+abcf+adf+cdf+ef+aef+cef+acef+def+cdef+ag+dg+adg+cdg+eg+aeg+ceg+bceg+deg+bfg+bdfg+efg+aefg+befg
+20 anf=c+ac+bc+bd+abd+bcd+e+ae+bce+de+bde+acde+f+af+bf+acf+abcf+df+adf+cdf+bef+cef+def+bdef+ag+bg+abg+cg+bcg+dg+cdg+bcdg+eg+beg+abeg+ceg+fg+afg+cfg+adfg+cefg
+20 anf=ac+bc+d+ad+cd+bcd+ace+bce+de+ade+cf+bcf+df+acdf+bcdf+aef+bef+abcef+def+bdef+abg+acg+dg+adg+cdg+abcdg+aeg+bceg+deg+adeg+abfg+cfg+dfg+efg
+20 anf=abd+bcd+ae+be+ace+bce+de+cde+abcde+f+af+bf+abf+cf+bcf+df+adf+bdf+cdf+ef+bef+cef+bcef+adef+ag+bg+cg+bdg+cdg+bcdg+eg+aeg+ceg+aceg+deg+fg+abfg+cfg+dfg
+#count=5 best=20
+
+

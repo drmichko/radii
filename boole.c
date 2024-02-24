@@ -26,6 +26,14 @@ int binomial(int k, int m){
   return step1;
 }
 
+int rmdimen(int k, int m){
+  int somme = 0;
+  for(int i = 0 ; i < k+1 ; i++ ){
+    somme = somme + binomial(i,m);
+  }
+  return somme;
+}
+
 
 int bstdimen(int s, int t, int m){
   int somme = 0;
@@ -63,10 +71,12 @@ int wtBoole(boole v){
 }
 
 
-boole strToBoole(char* s){
+boole strtoboole(char* s){
 
   boole res = getBoole();
   int u;
+  while ( *s != '=' ) s++;
+  s++;
   while(  *s  ){ 
     u = 0;
     while (isalpha( *s )){ 
@@ -77,12 +87,33 @@ boole strToBoole(char* s){
       res[x] ^= (x&u)==u; 
     }
 
-    if (*s){s++;} //pour sauter le '+'
+    if (*s) s++;
   }
 
   return res;
 
 }
+
+boole  loadBoole(  FILE *src, int * num )
+{ boole res = NULL;
+  char line[1024], *ptr;
+  *num = -1;
+  while ( fgets (line, 1024, src)  )
+    {
+      ptr = &line[0];
+      if ( sscanf( ptr, "%d" , num ) > 0  ) {
+        res =  strtoboole ( ptr );
+        return res;
+      }
+      if ( *ptr != '#'  ){
+	res =  strtoboole ( line );
+	return res;
+      }
+    }
+    return NULL;
+}
+
+
 
 void anf(boole f, int q){
   if(q==1) return;
@@ -97,6 +128,27 @@ void printANF(boole f){
   int flag = 0;
   anf(f,ffsize);
   printf("\n");
+  for(int u=0; u<ffsize; u++){
+    if(f[u]){
+      if(flag==0){flag=1;}
+      else{
+        printf("+");
+      }
+      for(int i=0; i<ffdimen; i++){
+        if(u&(1<<i)){
+          printf("%c",'a'+i);
+        }
+      }
+    }
+
+  }
+anf(f,ffsize);
+}
+
+void panfnum(int num, boole f){
+  int flag = 0;
+  anf(f,ffsize);
+  printf("\n%d anf=", num );
   for(int u=0; u<ffsize; u++){
     if(f[u]){
       if(flag==0){flag=1;}
