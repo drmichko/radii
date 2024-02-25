@@ -66,7 +66,7 @@ void zip(word* w, boole f){
   }
 }
 
-void printWord(word* w){
+void printWord( int v, word* w){
   int i;
   boole f = getBoole();
   for(i=0; i<64; i++){
@@ -77,7 +77,7 @@ void printWord(word* w){
       f[i+64] = 1;
     }
   }
-  printANF(f);
+  panfnum(v, f);
   free(f);
 }
 
@@ -98,7 +98,8 @@ int estimationWord (word* f, word** C, int dim_C, int seuil){
   int i;
   int w;
   int res = WT(f);
-
+  if ( res < seuil ) 
+	  return res;
   while (v<limite){
     i = __builtin_ctzll(v);
     f[0] ^= C[i][0];
@@ -115,28 +116,3 @@ int estimationWord (word* f, word** C, int dim_C, int seuil){
   }
   return res;
 }
-
-int estimationWordPlus(word* f, word** C, word** W, int dim_C, int dim_W, int seuil,
-  u_int64_t start, u_int64_t nb_tour){
-  int score = estimationWord(f,C, dim_C, seuil);
-  u_int64_t limite = start + nb_tour;
-  u_int64_t vec = start;
-  int e;
-  initStart(f, W, start);
-
-  while (vec < limite && score > 0) {
-    int i = __builtin_ctzll(vec);
-    f[0] ^= W[i][0];
-    f[1] ^= W[i][1];
-    e =  estimationWord(f,C, dim_C, seuil);
-    if (e > score){
-      score = e;
-    }
-    if (e >= seuil){
-      printWord(f);
-    }
-    vec = vec + 1;
-  }
-  return score;
-}
-
