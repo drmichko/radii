@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-NL=16
+NL=${1:-20}
+
 ROUND=1000
 
 if [ ! -f /tmp/rho37-0.txt ] ; then
@@ -24,7 +25,7 @@ input=/tmp/rho37-$num.txt
 echo ./rho37.exe   -t$NL -r$ROUND -i $input  '>'  $output
 ./rho37.exe   -t$NL -r$ROUND -i $input  >  $output
 
-grep anf $output > NL-3-7-16.txt
+grep anf $output > NL-3-7-$NL.dat
 
 ends=$( date +%s )
 

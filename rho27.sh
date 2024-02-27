@@ -1,7 +1,7 @@
-#!/usr/bin/bash/
+#!/usr/bin/bash
 
-NL=36
 
+NL=${1:-40}
 start=$( date +%s )
 
 for j in {0..71} ; do
@@ -10,7 +10,7 @@ done
 
 wait
 
-cat /tmp/rho27-*.txt  | grep anf > NL-2-7-36.txt
+cat /tmp/rho27-*.txt  | grep anf > NL-2-7-$NL.dat
 
 ends=$( date +%s )
 
