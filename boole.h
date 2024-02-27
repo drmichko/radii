@@ -17,4 +17,4 @@ boole  loadBoole(  FILE *src, int * num );
 int wtBoole( boole f );
 boole getBoole( void );
 boole strtoboole(char* s);
-
+void projboole( int s, int t, boole f );

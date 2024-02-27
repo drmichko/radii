@@ -71,6 +71,24 @@ int wtBoole(boole v){
 }
 
 
+void anf(boole f, int q){
+  if(q==1) return;
+  anf(f, q/2);
+  anf(&f[q/2], q/2);
+  for(int x=0; x<q/2; x++){
+    f[x+q/2] ^= f[x];
+  }
+}
+
+
+void projboole( int s, int t, boole f )
+{
+  anf(f,ffsize);
+  for(int u=0; u<ffsize; u++)
+	if ( wt(u) < s ||  wt(u) > t ) f[u] = 0; 
+  anf(f,ffsize);
+}
+
 boole strtoboole(char* s){
 
   boole res = getBoole();
@@ -113,16 +131,6 @@ boole  loadBoole(  FILE *src, int * num )
     return NULL;
 }
 
-
-
-void anf(boole f, int q){
-  if(q==1) return;
-  anf(f, q/2);
-  anf(&f[q/2], q/2);
-  for(int x=0; x<q/2; x++){
-    f[x+q/2] ^= f[x];
-  }
-}
 
 void printANF(boole f){
   int flag = 0;

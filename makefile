@@ -7,9 +7,11 @@ endif
 
 CFLAGS  = $(OPTION)
 
-all  : rho26.exe rho37.exe rho27.exe
+all  : rho26.exe rho37.exe rho27.exe rho28.exe
 
 
+rho28.exe  : boole.o  code.o word.o rho28.c  
+	gcc $(CFLAGS) $^ -o $@
 
 rho26.exe  : boole.o  code.o rho26.c  
 	gcc $(CFLAGS) $^ -o $@
