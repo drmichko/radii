@@ -23,7 +23,8 @@ void rho26( void )
 	if ( val < 0 ) val = ffsize;
 	res = estimation(f, c, target);
 	if (  res ) {
-	    if ( res > val ) res = val; 	
+	    if ( res > val ) res = val; 
+    	    projboole(3, ffdimen, f)	    ;
 	    panfnum(res, f);
 	}
     }
