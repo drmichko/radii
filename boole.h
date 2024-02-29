@@ -13,7 +13,7 @@ void printANF(boole f);
 
 void panfnum(int num, boole f);
 boole  loadBoole(  FILE *src, int * num );
-
+void anf(boole f, int size);
 int wtBoole( boole f );
 boole getBoole( void );
 boole strtoboole(char* s);

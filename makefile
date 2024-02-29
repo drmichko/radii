@@ -4,10 +4,14 @@ ifeq ($(shell hostname),localhost.localdomain)
 	OPTION = -Wall -g
 endif
 
+ifeq ($(shell hostname),ou812.univ-tln.fr)
+	OPTION = -Wall -g
+endif
+
 
 CFLAGS  = $(OPTION)
 
-all  : rho26.exe rho37.exe rho27.exe rho28.exe
+all  : rho18.exe rho26.exe rho37.exe rho27.exe rho28.exe
 
 
 rho28.exe  : boole.o  code.o word.o rho28.c  
@@ -20,6 +24,10 @@ rho37.exe  : boole.o  code.o rho37.c
 	gcc $(CFLAGS) $^ -o $@
 
 rho27.exe  : boole.o  code.o word.o rho27.c  
+	gcc $(CFLAGS) $^ -o $@
+rho18.exe  : boole.o  code.o word.o rho18.c  
+
+
 	gcc $(CFLAGS) $^ -o $@
 code.o : code.h code.c
 	gcc $(CFLAGS) $^ -c
