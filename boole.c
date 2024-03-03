@@ -135,7 +135,7 @@ boole  loadBoole(  FILE *src, int * num )
 void printANF(boole f){
   int flag = 0;
   anf(f,ffsize);
-  printf("\n");
+  printf("anf=");
   for(int u=0; u<ffsize; u++){
     if(f[u]){
       if(flag==0){flag=1;}
@@ -150,6 +150,7 @@ void printANF(boole f){
     }
 
   }
+  printf("\n");
 anf(f,ffsize);
 }
 
