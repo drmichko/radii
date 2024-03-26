@@ -10,7 +10,7 @@ int binomial(int k, int m);
 int rmdimen(int k, int m);
 int bstdimen(int s, int t, int m);
 void printANF(boole f);
-
+int degree(boole f);
 void panfnum(int num, boole f);
 boole  loadBoole(  FILE *src, int * num );
 void anf(boole f, int size);

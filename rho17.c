@@ -36,8 +36,27 @@ if (n>1) {
          };
 }
 
+void pwalsh( boole f  )
+{ int tfr[ ffsize];
+  int table[ ffsize + ffsize ];
+  int x;
+  for( x = 0; x < ffsize; x++ )
+	  table[x] = table[x+ffsize] = 0;
+  for( x = 0; x < ffsize; x++ )
+          tfr[x] = f[x] ? -1 : +1;
+  Fourier( tfr, ffsize );
 
-int linearity( boole f , int *flag   )
+  for( x = 0; x < ffsize; x++ )
+	 table[  tfr[x] + ffsize ]++;
+
+  for( x = 0; x < 2*ffsize ; x++ )
+	if ( table[  x  ] ) 
+		printf(" %d [ %d ]", table[x], x - ffsize ); 
+  printf("\n");
+}
+
+
+int flinearity( boole f , int *flag   )
 { int tfr[ ffsize ];
   int x;
   int res = 0, min = 16;
@@ -56,29 +75,42 @@ int linearity( boole f , int *flag   )
   return res;
 }
 
+int linearity( boole f   )
+{ int tfr[ ffsize ];
+  int x;
+  int res = 0;
+ 
+  for( x = 0; x < ffsize; x++ )
+          tfr[x] = f[x] ? -1 : +1;
+  Fourier( tfr, ffsize );
+  for( x = 0; x < ffsize; x++ ){
+	  int w = abs( tfr[x] );
+         if ( w  >  res )
+             res =  abs( tfr[x] );
+     }
+  return res;
+}
+
 void check( boole f ) 
-{ int flag[ 32 ] = {0};
+{ 
   int min;
-  int tfr = linearity( f , & min );
-  if ( tfr == 16 ) flag[ min ]++;
+  int tfr = linearity( f );
 
   u_int64_t limite = 1;
   limite = limite  << rm.dim;
   u_int64_t vec = 1;
 
-  printANF( f );
   while ( vec < limite ) {
     int i = __builtin_ctzll( vec );
     addBoole( f, rm.G[i]   );
-    tfr = linearity( f , & min );
-    if ( tfr == 16 ) 
-	    flag[ min ]++;
+    tfr = linearity( f  );
+    if ( tfr == 20  ) {
+	     printf("\ndegree:%d\n", degree(f)) ; 
+ 	     printANF( f );
+	     pwalsh( f );
+    }
     vec = vec + 1;
   }
-  int i;
-  for( i = 0; i < 17; i++ )
-	   if ( flag[i] ) printf("%d [%d] ", flag[i],  i);
-  printf("\n");
 }
 
 void rho17( void )

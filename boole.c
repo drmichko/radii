@@ -132,12 +132,25 @@ boole  loadBoole(  FILE *src, int * num )
 }
 
 
+int degree(boole f){
+  int res = -1;
+  anf(f,ffsize);
+  for(int u=0; u<ffsize; u++){
+    int w = wt( u );
+    if ( f[u] && w > res ) 
+	    res = w;
+  }
+   anf(f,ffsize);
+   return res;
+}
+
+
 void printANF(boole f){
   int flag = 0;
   anf(f,ffsize);
   printf("anf=");
   for(int u=0; u<ffsize; u++){
-    if(f[u]){
+    if(f[u] ){
       if(flag==0){flag=1;}
       else{
         printf("+");

@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
     rho27();
 
-    printf("#class NL_3 >= %d :", target);
+    printf("#class NL_3 >= %d ?", target);
 
     fclose(src);
     putchar('\n');
