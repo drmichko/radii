@@ -2,6 +2,7 @@
 
 NL=${1:-60}
 
+NL=56
 
 ROUND=1024
 let ROUND*=16
@@ -24,18 +25,20 @@ done
 
 input=/tmp/rho38-$num.txt
 let num++
-input=/tmp/rho38-$num.txt
+output=/tmp/rho38-$num.txt
 
-PROC=$( nproc )
-rm   /tmp/out-38-*.txt
-for j in {0..71} ; do
-        time ./rho38.exe   -t$NL  -j$j -m$PROC  -i B-3-4-7.dat -j$j -m72 &> /tmp/out-38-$j.txt &
+NPROC=$( nproc )
+for(( j = 0; j < NPROC; j++ )); do
+        echo -n '.'
+        ./rho38.exe   -t$NL  -r$ROUND  -j$j -m$NPROC  -i $input   > /tmp/out-38-$j.txt    &
 done
 
+echo
 wait
 
 cat   /tmp/out-38-*.txt > $output
 
+rm  -f  /tmp/out-38-*.txt
 
 grep anf $output > NL-3-8-$NL.dat
 
