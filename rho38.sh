@@ -23,9 +23,19 @@ while true; do
 done
 
 input=/tmp/rho38-$num.txt
+let num++
+input=/tmp/rho38-$num.txt
 
-echo ./rho38.exe   -t$NL -r$ROUND -i $input  '>'  $output
-./rho38.exe   -t$NL -r$ROUND -i $input  >  $output
+PROC=$( nproc )
+rm   /tmp/out-38-*.txt
+for j in {0..71} ; do
+        time ./rho38.exe   -t$NL  -j$j -m$PROC  -i B-3-4-7.dat -j$j -m72 &> /tmp/out-38-$j.txt &
+done
+
+wait
+
+cat   /tmp/out-38-*.txt > $output
+
 
 grep anf $output > NL-3-8-$NL.dat
 

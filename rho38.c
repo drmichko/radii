@@ -12,6 +12,8 @@ int verb = 0;
 int target = 1;
 int  tour  = 1;
 FILE *src = NULL;
+int job = 0;
+int modulo = 1;
 
 void rho38( void )
 {
@@ -19,19 +21,22 @@ void rho38( void )
     ffsize = 256;
     int val, res;
     code c = RM( 3 , ffdimen);
-    int count = 0;
+    int count = 0,  num =0;
     boole f;
     int best = 0;
     while (  ( f = loadBoole( src, &val) ) ) {
-	if ( val < 0 ) 
-		val = wtBoole( f );
-	res = probabiliste ( c,  f,  tour , target );
-	if (  res ) {
-	    if ( res > val ) res = val; 	
-	    panfnum(res, f);
-	    count++;
-	    if ( res > best ) best = res;
+	if ( job == num % modulo ) {
+		if ( val < 0 ) 
+			val = wtBoole( f );
+		res = probabiliste ( c,  f,  tour , target );
+		if (  res ) {
+	    	if ( res > val ) res = val; 	
+	    	panfnum(res, f);
+	    	count++;
+	    	if ( res > best ) best = res;
+		}
 	}
+	num++;
     }
 
     freeCode(c);
@@ -43,8 +48,8 @@ int main(int argc, char *argv[])
 
     int opt;
 
-
-    while ((opt = getopt(argc, argv, "t:o:vi:r:")) != -1) {
+   
+    while ((opt = getopt(argc, argv, "t:o:vij::r:m:")) != -1) {
 	switch (opt) {
 	case 'r':
 	    tour = atoi(optarg);
@@ -54,6 +59,12 @@ int main(int argc, char *argv[])
 	    break;
 	case 'i':
 	    src = fopen( optarg , "r");
+	    break;
+	case 'm':
+	    modulo = atoi( optarg );
+	    break;
+	case 'j':
+	    job = atoi( optarg );
 	    break;
 	case 'v':
 	    verb++;
