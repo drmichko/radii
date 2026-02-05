@@ -5,7 +5,6 @@ NL=${1:-60}
 NL=56
 
 ROUND=1024
-let ROUND*=16
 
 if [ ! -f /tmp/rho38-0.txt ] ; then
 	cp B-4-4-8.dat /tmp/rho38-0.txt
