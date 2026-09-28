@@ -75,7 +75,8 @@ void rho27( void )
     int val;
     
     code c = RM(2, ffdimen);
-    code b = B(5,5,7);
+    //code b = B(5,5,7);
+    code b = B(5,6,7);
     word** cz = pack( c );
     word** bz = pack( b );
 

@@ -11,7 +11,7 @@ endif
 
 CFLAGS  = $(OPTION)
 
-all  : rho38.exe rho17.exe rho18.exe rho26.exe rho37.exe rho27.exe rho28.exe
+all  : trans27.exe rho38.exe rho17.exe rho18.exe rho26.exe rho37.exe rho27.exe rho28.exe
 
 
 rho28.exe  : boole.o  code.o word.o rho28.c  
@@ -24,6 +24,9 @@ rho37.exe  : boole.o  code.o rho37.c
 	gcc $(CFLAGS) $^ -o $@
 
 rho38.exe  : boole.o  code.o rho38.c  
+	gcc $(CFLAGS) $^ -o $@
+
+trans27.exe  : boole.o  code.o word.o trans27.c  
 	gcc $(CFLAGS) $^ -o $@
 
 rho27.exe  : boole.o  code.o word.o rho27.c  
