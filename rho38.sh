@@ -5,7 +5,7 @@ NL=${1:-60}
 NL=56
 
 ROUND=1024
-let ROUND*=16
+
 
 if [ ! -f /tmp/rho38-0.txt ] ; then
 	cp B-4-4-8.dat /tmp/rho38-0.txt
@@ -47,3 +47,6 @@ ends=$( date +%s )
 echo runtime: $(( ends -start  ))
 
 wc -l NL-3-8-$NL.dat
+if [ ! -f stop ] ; then
+	./rho38.sh
+fi
