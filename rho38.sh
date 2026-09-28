@@ -6,7 +6,6 @@ NL=56
 
 ROUND=1024
 
-
 if [ ! -f /tmp/rho38-0.txt ] ; then
 	cp B-4-4-8.dat /tmp/rho38-0.txt
 fi
