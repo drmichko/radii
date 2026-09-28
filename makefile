@@ -14,6 +14,10 @@ CFLAGS  = $(OPTION)
 all  : trans27.exe rho38.exe rho17.exe rho18.exe rho26.exe rho37.exe rho27.exe rho28.exe
 
 
+dmin.exe  : boole.o  code.o word.o dmin.c  
+	gcc $(CFLAGS) $^ -o $@
+
+
 rho28.exe  : boole.o  code.o word.o rho28.c  
 	gcc $(CFLAGS) $^ -o $@
 

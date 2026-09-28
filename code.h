@@ -19,7 +19,7 @@ code RM(int k, int m);
 code B(int s, int t, int m);
 void addBoole(boole v, boole ligne);
 void pivotage(code c);
-
+int distance (code C);
 
 int estimation (boole f, code C, int seuil);
 
