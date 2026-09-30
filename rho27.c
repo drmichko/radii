@@ -75,8 +75,8 @@ void rho27( void )
     int val;
     
     code c = RM(2, ffdimen);
-    //code b = B(5,5,7);
-    code b = B(5,6,7);
+    code b = B(5,5,7);
+    //code b = B(5,6,7);
     word** cz = pack( c );
     word** bz = pack( b );
 
@@ -99,7 +99,7 @@ void rho27( void )
 
     freeCode(c);
     freeCode(b);
-    printf("\n#count=%d\n", count );
+    printf("\n#count=%d  avg=%d\n", count, count / step  );
 }
 
 
