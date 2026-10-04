@@ -123,7 +123,7 @@ boole  loadBoole(  FILE *src, int * num )
         res =  strtoboole ( ptr );
         return res;
       }
-      if ( *ptr != '#'  ){
+      if ( *ptr == 'a'  ){
 	res =  strtoboole ( line );
 	return res;
       }

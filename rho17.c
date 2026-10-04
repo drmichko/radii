@@ -93,7 +93,6 @@ int linearity( boole f   )
 
 void check( boole f ) 
 { 
-  int min;
   int tfr = linearity( f );
 
   u_int64_t limite = 1;

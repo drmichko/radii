@@ -8,10 +8,14 @@ ifeq ($(shell hostname),ou812.univ-tln.fr)
 	OPTION = -Wall -g
 endif
 
+ifeq ($(DEBUG),1)
+        OPTION = -Wall -g
+endif
+
 
 CFLAGS  = $(OPTION)
 
-all  : trans27.exe rho38.exe rho17.exe rho18.exe rho26.exe rho37.exe rho27.exe rho28.exe
+all  : rho38.exe rho17.exe rho18.exe rho26.exe rho37.exe rho27.exe rho28.exe
 
 
 dmin.exe  : boole.o  code.o word.o dmin.c  

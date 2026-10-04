@@ -68,112 +68,6 @@ int probcoset( boole f, code c, code w ){
 }
 
 
-uint64_t *  rmcode64( int s, int t ) 
-{   int dim = bstdimen( s, t, 6 );;
-    uint64_t * res = calloc( dim , sizeof( uint64_t ) );
-    int i  = 0;
-    for( int u = 0; u < 64; u++)
-       if ((s <= wt(u)) && (wt(u)<= t)){
-         for( int x=0; x < 64; x++){
-	     int tmp = ( ( u & x )==u ) ;
-             res[i] ^= ( (uint64_t) tmp ) << x;
-         }
-         i = i+1;
-    }
-  assert( i == dim );
-  return res;
-}
-	
-	
-uint64_t * rm016 = NULL;
-
-int NL16( uint64_t f, int seuil ){
-  if ( ! rm016 ) 
-	 rm016 = rmcode64( 0, 1);
-  u_int64_t limite  = 1;
-  limite = limite  << 7;
-  u_int64_t v = 1;
-  int res = (__builtin_popcountll( f ));
-  if ( res < seuil )
-          return 0 ;
-  while (  res >= seuil && v < limite  ){
-    int i = __builtin_ctzll(v);
-    f ^= rm016[ i ];
-    int w = __builtin_popcountll( f );
-    if ( w < res){
-      res = w;
-    }
-    v =  v + 1;
-  }
-  return res;
-}
-
-
-uint64_t * rm226 = NULL;
-int nlh( uint64_t z , int seuil   )
-{
-  	if ( ! rm226 ) 
-		rm226 = rmcode64( 2, 2);
-
-        int res = (__builtin_popcountll( z ));
-        int  cpt=1, limite = 1 << 15;
-        while (  res >= seuil  && cpt < limite ) {
-                int i = __builtin_ctz( cpt  );
-                z ^= rm226[ i ];
-		int wt = NL16( z, seuil );
-                if ( wt < res ) res = wt;
-                cpt++;
-        }
-	if ( res < seuil ) 
-		return res;
-	/*z = 0;
-	for( int x = 0; x < 64; x++ )
-		z ^=  (uint64_t) ( f[x] ^ f[x+64] )  << x;	
-
-        res = (__builtin_popcountll( z ));
-        cpt=1;
-        while (  res >= seuil  && cpt < limite ) {
-                int i = __builtin_ctz( cpt  );
-                z ^= rm226[ i ];
-		int wt = NL16( z, seuil );
-                if ( wt < res ) res = wt;
-                cpt++;
-        }
-*/
-        return res;
-}
-
-int enumcosetif( word* f, int dc, word** C, int dw, word** W ){
-  u_int64_t limite = 1;
-  limite = limite  << dw;
-  u_int64_t vec = 1;
-  int count = 0;
-  int e;
-  if (  nlh( f[0], 15) >= 15 )  {
-  	e = estimationWord(f, C, dc, target );
-  	if ( e >=  target ){
-      	count = count + 1;
-      	printWord(e, f );
-    }
-  }
-
-  while ( vec < limite ) {
-    int i = __builtin_ctzll( vec );
-    f[0] ^= W[i][0];
-    f[1] ^= W[i][1];
-    if (  nlh( f[0], 15) >=15  )  {
-    	e = estimationWord(f, C, dc, target );
-    	if ( e >=  target ){
-      	count = count + 1;
-      	printWord(e, f );
-    	}
-    }
-    vec = vec + 1;
-  }
-  return count;
-}
-
-
 void rho27( void )
 {
     ffdimen = 7;
@@ -181,7 +75,8 @@ void rho27( void )
     int val;
     
     code c = RM(2, ffdimen);
-    code b = B(3,3,7);
+    code b = B(5,5,7);
+    //code b = B(5,6,7);
     word** cz = pack( c );
     word** bz = pack( b );
 
@@ -192,13 +87,10 @@ void rho27( void )
     int num = 0;
     int step = 0;
     while (  ( f = loadBoole( src, &val) ) ) {
-	if ( val < 0 ) 
-		val = ffsize;
-	if (  num % module == job && degree(f) == 6 )  {
+	if ( val < 0 ) val = ffsize;
+	if (  num % module == job ) {
 		zip( w, f );
-		count += enumcosetif( w, c.dim, cz, b.dim, bz  );
-		printf("\r%4d", step );
-		fflush(stdout );
+		count += enumcoset( w, c.dim, cz, b.dim, bz  );
                 step++;
 	}
 	free( f );
@@ -207,7 +99,7 @@ void rho27( void )
 
     freeCode(c);
     freeCode(b);
-    printf("\n#count=%d  step=%d\n", count, step  );
+    printf("\n#count=%d  avg=%d\n", count, count / step  );
 }
 
 
